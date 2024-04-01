@@ -707,7 +707,6 @@ fig2a <- ggplot(df_ng_sex_ratio, aes(Source, Proportion,fill=Sex)) +
         axis.title = element_text(size = 16, family = "serif"),
         # legend.text = element_text(size = 16, family = "serif"),
         axis.text = element_text(size =16, family = "serif"))
-
 fig2a 
 ```
 
