@@ -502,9 +502,9 @@ df_cn_ruggeri2022_geo <- df_cn_ruggeri2022 %>%
                                  levels = c("< 0.9%", "1~4.9%", "5~9.9%", "10~14.9%", "15~19.9%",
                                             "20~24.9%",">25%")),
                 ) 
-### The following is the basic data and code ("china_map.R")for drawing a base map of China
+### "China_map. R" is the R code used to preprocess the map base data of China. Please refer to the relevant code and data below：
 # the code was largely learnt from: https://zhuanlan.zhihu.com/p/657468813 &  https://zhuanlan.zhihu.com/p/688675766
-# Data information description: https://www.webmap.cn/commres.do?method=result100W
+# Data from: https://www.webmap.cn/commres.do?method=result100W
 
 source("china_map.R", local = knitr::knit_global())
 
