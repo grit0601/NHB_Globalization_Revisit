@@ -20,7 +20,7 @@ if (!require("pacman")) install.packages("pacman")             # install the pac
 # load packages with "p_load", which will automatically install packages that not exist in the system.
 pacman::p_load('tidyverse', 'easystats', 'patchwork', 'here', 'bruceR', "tidycensus")
 pacman::p_load('geojsonsf', 'RColorBrewer', 'rgdal', 'mapproj', 'ggspatial', 'sf',"ggspatial",'naijR') # ggsn and maptools are not used.
-pacman::p_load("readxl", "rjson", "rlist")
+pacman::p_load("readxl", "mapchina","rjson","rlist","mapchina")
 ```
 
 ## Preprocessing
@@ -129,9 +129,6 @@ load(here::here("1_2_data_files.RData"))
 # below are commented code for the pre-processing map data
 # source("china_map.R", local = knitr::knit_global())  
 load(here::here("Re_Analysis_CHN.RData"))
-# this file below contains the data of standard China map,  please see "china_map.R" for more information
-# please contact the corresponding author if you encountered any difficulties in obtain the map by you own.
-load(here::here("Re_Analysis_CHN2.RData")) 
 
 # import data for Nigeria, it includes two variable:
 # "df_ng_wb": data extracted from World Bank, df_ng_wb <- bruceR::import('Data_extracte_WorldBankData_Series_Data.csv')
@@ -459,7 +456,7 @@ SARs <- data.frame(
       Colors = c(1, 1, 2) 
       )
 
-df_cn_census_geo_adults_all <-   rbind(df_cn_census_geo_adults_all, SARs)
+df_cn_census_geo_adults_all <- rbind(df_cn_census_geo_adults_all, SARs)
 df_cn_census_geo_adults_all
 
 # similar plot as for age and educational attainment, but this fig does not suit other countries, not presented in the end.
@@ -533,6 +530,8 @@ colour <- colour %>%
                 colour_census = factor(colour_census, 
                                     levels = c("0","1", "2", "3", "4", "5", "6","7")))
 
+# The underlying data of China map "ChinaMap" is to add South China Sea Islands and ten segment lines on the basis of the provincial data of R package mapchina. For more information, please see "china_map.R".
+source("china_map.R", local = knitr::knit_global())
 ChinaMap2 <- dplyr::left_join(ChinaMap, colour,by= "province")
 
 # plot the main part
