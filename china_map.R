@@ -7,6 +7,7 @@ ChinaMap <- china %>%
 ChinaMap <- ChinaMap %>%
   group_by(Name_Province) %>%
   summarise(geometry = st_union(geometry))
+
 #Add coordinates of a ten dash line
 line1 <- matrix(c(
   122.518653, 23.460785, 122.798614, 24.573674,   122.798893, 24.576790, 122.798196, 24.579840,  122.796590, 24.582525, 122.794233, 24.584583,   122.791356, 24.585811, 122.788240, 24.586090, 122.785190, 24.585393, 122.782504, 24.583787,122.780447,24.581430, 122.779218,24.578553, 122.499257, 23.465664, 122.498978,23.462548,  122.499676, 23.459498, 122.501281,23.456813, 122.503638, 23.454755, 122.506516,23.453527, 122.509632,23.453248, 122.512682, 23.453945,
@@ -550,6 +551,24 @@ sfc_multipolygon2 <- sf::st_set_crs(sfc_multipolygon2, 4326)
 new_data2 <- data.frame(Name_Province = "南海", geometry =sfc_multipolygon2)
 new_data2 <- sf::st_as_sf(new_data2, crs = 4326)
 ChinaMap <- rbind(ChinaMap, new_data2)
+
+#Add Diaoyu Islands and nearby islands
+island131 <- matrix(c(122.09750, 25.49999, 122.11044,  25.46595, 122.12214, 25.49567, 122.09750, 25.49999),ncol=2, byrow=TRUE)  
+
+island132 <- matrix(c(123.44518, 25.72610, 123.46982, 25.71262, 123.50862, 25.72287, 123.51232, 25.75521, 123.47906, 25.76869, 123.44579, 25.74982, 123.44518, 25.72610),ncol=2, byrow=TRUE) 
+
+island133 <- matrix(c(124.54278, 25.90389, 124.58467, 25.90873,124.56680, 25.94156, 124.54278, 25.90389),ncol=2, byrow=TRUE) 
+
+polygons3 <- list(list(island131), list(island132), list(island133))
+
+multipolygon3 <- sf::st_multipolygon(polygons3)
+
+sfc_multipolygon3 <- sf::st_sfc(multipolygon3)
+sfc_multipolygon3 <- sf::st_set_crs(sfc_multipolygon3, 4326)
+
+new_data3 <- data.frame(Name_Province = "钓鱼岛及附近岛屿", geometry =sfc_multipolygon3)
+new_data3 <- sf::st_as_sf(new_data3, crs = 4326)
+ChinaMap <- rbind(ChinaMap, new_data3)
 
 
 ChinaMap <- rename(ChinaMap, province = Name_Province, geometry = geometry)
